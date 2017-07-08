@@ -10,6 +10,7 @@
         dataType: "json",
         contentType: "application/json",
         success: function (data) {
+            var r = "mytest";
             if (data.code == "SUCCESS") {
                 console.log(data);
             }

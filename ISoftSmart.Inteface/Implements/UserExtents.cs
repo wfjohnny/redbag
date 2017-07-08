@@ -10,6 +10,8 @@ namespace ISoftSmart.Inteface.Implements
 {
     public class UserExtents : ITestUsers
     {
+        public UserExtents()
+        { }
         void ITestUsers.Test()
         {
            

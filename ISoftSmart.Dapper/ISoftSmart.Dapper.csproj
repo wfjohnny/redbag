@@ -81,6 +81,7 @@
     <Compile Include="DapperRepository.cs" />
     <Compile Include="Helper\ExtendHelper.cs" />
     <Compile Include="Helper\MySqlHelper.cs" />
+    <Compile Include="Helper\SQLHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

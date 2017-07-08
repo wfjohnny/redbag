@@ -50,13 +50,18 @@
     <Compile Include="BaseModel.cs" />
     <Compile Include="DataTablesData.cs" />
     <Compile Include="JObjectParse.cs" />
+    <Compile Include="ModelMaster.cs" />
     <Compile Include="PageData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RB\My\MyRBCreateBag.cs" />
+    <Compile Include="RB\RBBagSerial.cs" />
+    <Compile Include="RB\RBCreateBag.cs" />
     <Compile Include="ServicesException.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -18,16 +18,16 @@ namespace ISoftSmart.Dapper.Helper
         /// <returns>json格式的字符串</returns>
         public static string GetJsonByDataset(this DataSet ds)
         {
-            if (ds == null || ds.Tables.Count <= 0 || ds.Tables[0].Rows.Count <= 0)
-            {
-                //如果查询到的数据为空则返回标记ok:false
-                return "{\"ok\":false}";
-            }
+            //if (ds == null || ds.Tables.Count <= 0 || ds.Tables[0].Rows.Count <= 0)
+            //{
+            //    //如果查询到的数据为空则返回标记ok:false
+            //    return "{\"ok\":false}";
+            //}
             StringBuilder sb = new StringBuilder();
-            sb.Append("{\"ok\":true,");
+            //sb.Append("{\"ok\":true,");
             foreach (DataTable dt in ds.Tables)
             {
-                sb.Append(string.Format("\"{0}\":[", dt.TableName));
+                //sb.Append(string.Format("\"{0}\":[", dt.TableName));
 
                 foreach (DataRow dr in dt.Rows)
                 {
@@ -41,12 +41,13 @@ namespace ISoftSmart.Dapper.Helper
                 }
 
                 sb.Remove(sb.ToString().LastIndexOf(','), 1);
-                sb.Append("],");
+                //sb.Append("],");
             }
-            sb.Remove(sb.ToString().LastIndexOf(','), 1);
-            sb.Append("}");
+            //sb.Remove(sb.ToString().LastIndexOf(','), 1);
+            //sb.Append("}");
             return sb.ToString();
         }
+      
         /// <summary>
         /// 将object转换成为string
         /// </summary>

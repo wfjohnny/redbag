@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ISoftSmart.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -50,6 +51,8 @@ namespace ISoftSmart.Core.IoC
         /// <param name="type"></param>
         /// <returns></returns>
         bool IsRegistered(Type type);
+        void RegisterTypeList(List<ModelMaster> model);
+        void RegisterType(List<Type> model);
     }
 }
 

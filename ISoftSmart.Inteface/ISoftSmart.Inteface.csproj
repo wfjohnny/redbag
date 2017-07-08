@@ -44,7 +44,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IDependency.cs" />
+    <Compile Include="Implements\RedBagExtends.cs" />
     <Compile Include="Implements\UserExtents.cs" />
+    <Compile Include="Inteface\IRedBag.cs" />
     <Compile Include="Inteface\ITestUsers.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

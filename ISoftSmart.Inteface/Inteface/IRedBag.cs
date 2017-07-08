@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ISoftSmart.Model.RB;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,10 +7,8 @@ using System.Threading.Tasks;
 
 namespace ISoftSmart.Inteface.Inteface
 {
-  public interface ITestUsers :IDependency
+    public interface IRedBag :IDependency
     {
-        void Test();
-        int Test1();
-        string Test2();
+        RBCreateBag GetBag(RBCreateBag bag);
     }
 }

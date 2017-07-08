@@ -115,7 +115,12 @@
     <None Include="packages.config" />
     <None Include="RedisClient\App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\ISoftSmart.Model\ISoftSmart.Model.csproj">
+      <Project>{339A73A0-304F-48A8-A11B-13369BB00E44}</Project>
+      <Name>ISoftSmart.Model</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

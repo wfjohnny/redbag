@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Autofac;
+using System.Reflection;
+using ISoftSmart.Model;
 
 namespace ISoftSmart.Core.IoC.Implements
 {
@@ -105,5 +107,31 @@ namespace ISoftSmart.Core.IoC.Implements
         {
             return builder.Build().IsRegistered(type);
         }
+
+        public void RegisterTypeList(List<ModelMaster> model)
+        {
+            foreach (var item in model)
+            {
+                if (item.to != null)
+                {
+                    builder.RegisterType(item.to).As(item.from).PreserveExistingDefaults();
+                }
+                else
+                {
+                    builder.RegisterType(item.from).PreserveExistingDefaults();
+                }
+            }
+            container = builder.Build();
+        }
+
+        public void RegisterType(List<Type> model)
+        {
+            foreach (var item in model)
+            {
+                builder.RegisterType(item).PreserveExistingDefaults();
+            }
+            container = builder.Build();
+        }
+
     }
 }

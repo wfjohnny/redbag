@@ -296,6 +296,7 @@
     <Compile Include="Attributes\HttpRequestMessageExtensions.cs" />
     <Compile Include="Attributes\SessionFilter.cs" />
     <Compile Include="Attributes\TokenAuthorizeAttribute.cs" />
+    <Compile Include="CacheKey.cs" />
     <Compile Include="Configuration\Cors.cs" />
     <Compile Include="Configuration\CorsConfiguration.cs" />
     <Compile Include="Configuration\DefaultConfiguration.cs" />
@@ -305,6 +306,7 @@
     </Compile>
     <Compile Include="Handlers\CustomJwtSecurityTokenHandler.cs" />
     <Compile Include="Handlers\CustomRequestHandler.cs" />
+    <Compile Include="Init\InitConfig.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />

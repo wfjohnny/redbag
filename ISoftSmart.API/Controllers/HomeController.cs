@@ -1,13 +1,16 @@
 ﻿using ISoftSmart.API.App_Start;
+using ISoftSmart.Core.IoC;
 using ISoftSmart.Core.RedisClient;
 using ISoftSmart.Inteface.Implements;
 using ISoftSmart.Inteface.Inteface;
 using ISoftSmart.Model;
 using ISoftSmart.Model.AD;
 using ISoftSmart.Model.AD.My;
+using ISoftSmart.Model.RB;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
 using System.Web.SessionState;
@@ -17,12 +20,13 @@ namespace ISoftSmart.API.Controllers
     [RoutePrefix("api/test")]
     public class HomeController : BaseController, IRequiresSessionState
     {
-           [Route("t")]
-       [HttpGet]
+        private static object _locker = new object();
+        [Route("t")]
+        [HttpGet]
         public IHttpActionResult Index()
         {
             #region IOC
-           // ISoftSmart.Core.IoC.IoCFactory.Instance.CurrentContainer.RegisterType(typeof(ITestUsers), typeof(UserExtents));//注册接口
+            // ISoftSmart.Core.IoC.IoCFactory.Instance.CurrentContainer.RegisterType(typeof(ITestUsers), typeof(UserExtents));//注册接口
             //var rt = ISoftSmart.Core.IoC.IoCFactory.Instance.CurrentContainer.Resolve<ITestUsers>();//使用接口
             //var tt = rt.Test2();//执行SQL返回JSON
             #endregion
@@ -54,13 +58,62 @@ namespace ISoftSmart.API.Controllers
             ////StackExchangeRedisExtensions.Remove(db, "t");
 
             #endregion
+            #region Redis队列
+            //RedisQueueManager.Push()
+            #endregion
+            
+            var rt = IoCFactory.Instance.CurrentContainer.Resolve<IRedBag>();//注册对象
+            var rt1 = IoCFactory.Instance.CurrentContainer.Resolve<ITestUsers>();//注册对象
+            RBCreateBag bag = IoCFactory.Instance.CurrentContainer.Resolve<RBCreateBag>();//注册对象
+            var bag1 = IoCFactory.Instance.CurrentContainer.Resolve<AdUser>();//注册对象
+            bag = rt.GetBag(bag);
+            bag=rt.GetBag(bag);
+            
+            if (bag!=null)
+            {
+                var db = RedisManager.Instance.GetDatabase();
+                if (StackExchangeRedisExtensions.HasKey(db, CacheKey.BagKey))
+                {
+                    var bagcache = StackExchangeRedisExtensions.Get(db, CacheKey.BagKey);
+                    
+                }
+                else
+                {
+                   StackExchangeRedisExtensions.Set(db, CacheKey.BagKey, bag);
+                }
+            }
+            else
+            {
 
-            //var res=ISoftSmart.Core.IoC.IoCFactory.Instance.CurrentContainer.Resolve<MyAdUser>();
+            }
             return Ok(new APIResponse<string>
             {
                 Code = "SUCCESS",
                 ResponseMessage = "获取列表成功！",
                 Result = "111111"
+            });
+
+        }
+        [Route("openbag")]
+        [HttpGet]
+        public async Task<IHttpActionResult> OpenBag(RBCreateBag bag)
+        {
+            //var rt = ISoftSmart.Core.IoC.IoCFactory.Instance.CurrentContainer.Resolve<IRedBag>();//使用接口
+            //bag.CreateTime = DateTime.Now;
+            //var res = await Task.Run(() => rt.GetBag());
+            //lock (_locker)
+            //{
+
+            //}
+
+
+            //var tt = ;//执行SQL返回JSON
+
+            return Ok(new APIResponse<string>
+            {
+                Code = "SUCCESS",
+                ResponseMessage = "获取列表成功！",
+                Result = ""
             });
         }
         [Serializable]

@@ -15,6 +15,18 @@ namespace ISoftSmart.Inteface.Implements
     {
         public RedBagExtends()
         { }
+
+        public int ChangeBagStatus(RBCreateBag bag)
+        {
+            SqlParameter[] sp = new SqlParameter[]
+           {
+                new SqlParameter("@BagStatus",bag.BagStatus),
+                new SqlParameter("@RID",bag.RID)
+           };
+            var result = Dapper.Helper.SQLHelper.Execute("update CreateBag set BagStatus=@BagStatus where RID=@RID", sp, CommandType.Text);
+            return result;
+        }
+
         public RBCreateBag GetBag(RBCreateBag bag)
         {
             SqlParameter[] sp = new SqlParameter[]
@@ -22,6 +34,8 @@ namespace ISoftSmart.Inteface.Implements
                 new SqlParameter("@BagStatus",bag.BagStatus)
             };
             var result = Dapper.Helper.SQLHelper.QueryDataSet("select * from CreateBag where BagStatus=@BagStatus", sp, CommandType.Text);
+            if (result == "")
+                return null;
             return result.JsonDeserialize<RBCreateBag>();
         }
     }

@@ -8,5 +8,6 @@ namespace ISoftSmart.API
     public class CacheKey
     {
         public const string BagKey = "BagKey";
+        public const string OpenBagKey = "OpenBagKey";
     }
 }

@@ -39,8 +39,10 @@ namespace ISoftSmart.Dapper.Helper
                     sb.Remove(sb.ToString().LastIndexOf(','), 1);
                     sb.Append("},");
                 }
-
-                sb.Remove(sb.ToString().LastIndexOf(','), 1);
+                if(dt.Rows.Count>0)
+                {
+                    sb.Remove(sb.ToString().LastIndexOf(','), 1);
+                }
                 //sb.Append("],");
             }
             //sb.Remove(sb.ToString().LastIndexOf(','), 1);

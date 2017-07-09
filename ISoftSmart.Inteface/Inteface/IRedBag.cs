@@ -10,5 +10,6 @@ namespace ISoftSmart.Inteface.Inteface
     public interface IRedBag :IDependency
     {
         RBCreateBag GetBag(RBCreateBag bag);
+        int ChangeBagStatus(RBCreateBag bag);
     }
 }

@@ -61,60 +61,131 @@ namespace ISoftSmart.API.Controllers
             #region Redis队列
             //RedisQueueManager.Push()
             #endregion
-            
-            var rt = IoCFactory.Instance.CurrentContainer.Resolve<IRedBag>();//注册对象
-            var rt1 = IoCFactory.Instance.CurrentContainer.Resolve<ITestUsers>();//注册对象
-            RBCreateBag bag = IoCFactory.Instance.CurrentContainer.Resolve<RBCreateBag>();//注册对象
-            var bag1 = IoCFactory.Instance.CurrentContainer.Resolve<AdUser>();//注册对象
-            bag = rt.GetBag(bag);
-            bag=rt.GetBag(bag);
-            
-            if (bag!=null)
+
+            //var rt = IoCFactory.Instance.CurrentContainer.Resolve<IRedBag>();//注册对象
+            //var bag = IoCFactory.Instance.CurrentContainer.Resolve<RBCreateBag>();//注册对象
+            //bag = rt.GetBag(bag);
+
+
+            var db = RedisManager.Instance.GetDatabase();
+            if (StackExchangeRedisExtensions.HasKey(db, CacheKey.BagKey))
             {
-                var db = RedisManager.Instance.GetDatabase();
-                if (StackExchangeRedisExtensions.HasKey(db, CacheKey.BagKey))
+                var bagcaches = StackExchangeRedisExtensions.Get<RBCreateBag>(db, CacheKey.BagKey);
+                return Ok(new APIResponse<RBCreateBag>
                 {
-                    var bagcache = StackExchangeRedisExtensions.Get(db, CacheKey.BagKey);
-                    
+                    Code = "SUCCESS",
+                    ResponseMessage = "获取列表成功！",
+                    Result = bagcaches
+                });
+            }
+            else
+            {
+                var rt = IoCFactory.Instance.CurrentContainer.Resolve<IRedBag>();//注册对象
+                var bag = IoCFactory.Instance.CurrentContainer.Resolve<RBCreateBag>();//注册对象
+                bag.BagStatus = 0;
+                bag = rt.GetBag(bag);
+                if (bag != null)
+                {
+                    StackExchangeRedisExtensions.Set(db, CacheKey.BagKey, bag);
+                    var bagcaches = StackExchangeRedisExtensions.Get<RBCreateBag>(db, CacheKey.BagKey);
+                    return Ok(new APIResponse<RBCreateBag>
+                    {
+                        Code = "SUCCESS",
+                        ResponseMessage = "获取列表成功！",
+                        Result = bagcaches
+                    });
                 }
                 else
                 {
-                   StackExchangeRedisExtensions.Set(db, CacheKey.BagKey, bag);
+                    return Ok(new APIResponse<RBCreateBag>
+                    {
+                        Code = "ERROR",
+                        ResponseMessage = "红包抢完了！",
+                    });
+                }
+            }
+
+        }
+        [Route("openbag")]
+        [HttpPost]
+        public IHttpActionResult OpenBag(RBCreateBag bag)
+        {
+            var rt = ISoftSmart.Core.IoC.IoCFactory.Instance.CurrentContainer.Resolve<IRedBag>();//使用接口
+            //bag.CreateTime = DateTime.Now;
+            //var res = await Task.Run(() =>rt.GetBag(bag));
+            var Code = string.Empty;
+            var ResponseMessage = string.Empty;
+            RBCreateBag Result = null;
+            //Task.Run(() =>
+            //{
+            bag.CreateTime = DateTime.Now;
+            var db = RedisManager.Instance.GetDatabase();
+            if (StackExchangeRedisExtensions.HasKey(db, CacheKey.BagKey))
+            {
+                lock (_locker)
+                {
+                    var bagcache = StackExchangeRedisExtensions.Get<RBCreateBag>(db, CacheKey.BagKey);
+                    if (bagcache.BagNum > 0)
+                    {
+                        decimal curAmount = 0;
+                        var openResult = GenerateBag(bagcache, out curAmount);
+                        Code = "SUCCESS";
+                        ResponseMessage = "抢到" + curAmount + "元！";
+                        Result = openResult;
+                        RedisQueueManager.Push<RBCreateBag>(CacheKey.OpenBagKey, bagcache);
+                        StackExchangeRedisExtensions.Set(db, CacheKey.BagKey, bagcache);
+                    }
+                    else
+                    {
+                        Code = "ERROR";
+                        ResponseMessage = "红包抢完了！";
+                        bag.BagStatus = 1;
+                        //RedisQueueManager.DoQueue<int>((s) =>
+                        //{
+                        //    rt.ChangeBagStatus(bag);
+                        //}, CacheKey.OpenBagKey);
+                        rt.ChangeBagStatus(bag);
+                        StackExchangeRedisExtensions.Remove(db, CacheKey.BagKey);
+                    }
                 }
             }
             else
             {
-
+                StackExchangeRedisExtensions.Set(db, CacheKey.BagKey, bag);
             }
-            return Ok(new APIResponse<string>
+            return Ok(new APIResponse<RBCreateBag>
             {
-                Code = "SUCCESS",
-                ResponseMessage = "获取列表成功！",
-                Result = "111111"
+                Code = Code,
+                ResponseMessage = ResponseMessage,
+                Result = Result
             });
-
-        }
-        [Route("openbag")]
-        [HttpGet]
-        public async Task<IHttpActionResult> OpenBag(RBCreateBag bag)
-        {
-            //var rt = ISoftSmart.Core.IoC.IoCFactory.Instance.CurrentContainer.Resolve<IRedBag>();//使用接口
-            //bag.CreateTime = DateTime.Now;
-            //var res = await Task.Run(() => rt.GetBag());
-            //lock (_locker)
+            //});
+            //return Ok(new APIResponse<RBCreateBag>
             //{
-
-            //}
-
-
-            //var tt = ;//执行SQL返回JSON
-
-            return Ok(new APIResponse<string>
+            //    Code = Code,
+            //    ResponseMessage = ResponseMessage,
+            //    Result = Result
+            //});
+        }
+        RBCreateBag GenerateBag(RBCreateBag bag, out decimal curAmount)
+        {
+            bag.BagNum -= 1;
+            curAmount = 0;
+            if (bag.BagNum != 0)
             {
-                Code = "SUCCESS",
-                ResponseMessage = "获取列表成功！",
-                Result = ""
-            });
+                Random ran = new Random();
+                var Num = Decimal.ToInt32(bag.BagAmount * 100 - bag.BagNum);
+                double RandKey = ran.Next(1, Num);
+                decimal f = (decimal)(RandKey * 0.01);
+                bag.BagAmount -= f;
+                curAmount = f;
+            }
+            else
+            {
+                curAmount = bag.BagAmount;
+                bag.BagAmount = 0;
+            }
+            return bag;
         }
         [Serializable]
         public class UserInfo

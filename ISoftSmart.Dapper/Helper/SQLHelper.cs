@@ -209,7 +209,7 @@ namespace ISoftSmart.Dapper.Helper
         /// <param name="parms">参数</param>
         /// <param name="cmdType">查询类型(SQL语句/存储过程名)</param>
         /// <returns>更新的行数</returns>
-        public static int Execute(string database, string sql, SqlParameter[] parms, CommandType cmdType)
+        public static int Execute( string sql, SqlParameter[] parms, CommandType cmdType, string database= BestNet)
         {
             if (string.IsNullOrEmpty(database))
             {
@@ -302,10 +302,10 @@ namespace ISoftSmart.Dapper.Helper
         /// <param name="cmdType">查询类型(SQL语句/存储过程名)</param>
         /// <param name="values">参数</param>
         /// <returns>更新的行数</returns>
-        public static int Execute(string database, string sql, CommandType cmdType, IDictionary<string, object> values)
+        public static int Execute(string sql, CommandType cmdType, IDictionary<string, object> values, string database = BestNet)
         {
             SqlParameter[] parms = DicToParams(values);
-            return Execute(database, sql, parms, cmdType);
+            return Execute(sql, parms, cmdType,database);
         }
 
         /// <summary>

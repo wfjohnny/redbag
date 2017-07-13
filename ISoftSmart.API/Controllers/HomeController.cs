@@ -60,6 +60,7 @@ namespace ISoftSmart.API.Controllers
             {
                 Code = "SUCCESS",
                 ResponseMessage = "获取列表成功！",
+
                 Result = "111111"
             });
         }

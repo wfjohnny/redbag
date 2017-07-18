@@ -1,6 +1,7 @@
 ﻿
     //请求API后台地址
-    var Apiurl = "http://localhost:8931/";
+var Apiurl = "http://localhost:8931/";
+var Signalr = "http://localhost:1494/";
     //调用后台链接，json字符串，请求类型：post，get
     function callBackFuncJson(url, jsonVal, type) {
         var resdata;

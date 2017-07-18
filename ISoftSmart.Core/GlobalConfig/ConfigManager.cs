@@ -58,7 +58,7 @@ namespace ISoftSmart.Core.GlobalConfig
             _init.Pub_Sub.RepeatNum = 10;
             _init.DomainEvent.Type = "Memory";
             _init.DomainEvent.RedisKey = "DomainEventBus";
-            _init.IocContaion.IoCType = 0;
+            _init.IocContaion.IoCType = 1;
             _init.IocContaion.AoP_CacheStrategy = "EntLib";
             _init.LindMQ.AutoEmptyForDay = 1;
             _init.LindMQ.Config_QueueCount = 5;
@@ -126,8 +126,9 @@ namespace ISoftSmart.Core.GlobalConfig
                 {
                     lock (_lockObj)
                     {
+                        var old = _init;// SerializationHelper.DeserializeFromJson<ConfigModel>(_fileName);
 
-                        var old = SerializationHelper.DeserializeFromJson<ConfigModel>(_fileName);
+                        //var old = SerializationHelper.DeserializeFromJson<ConfigModel>(_fileName);
 
                         if (old != null)
                         {

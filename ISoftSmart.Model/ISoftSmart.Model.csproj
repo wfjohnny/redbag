@@ -57,6 +57,7 @@
     <Compile Include="RB\RBBagSerial.cs" />
     <Compile Include="RB\RBCreateBag.cs" />
     <Compile Include="ServicesException.cs" />
+    <Compile Include="UserDetail.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

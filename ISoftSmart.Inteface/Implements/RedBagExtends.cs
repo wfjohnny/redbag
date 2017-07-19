@@ -38,5 +38,41 @@ namespace ISoftSmart.Inteface.Implements
                 return null;
             return result.JsonDeserialize<RBCreateBag>();
         }
+
+        public int InsertBag(RBCreateBag bag)
+        {
+            SqlParameter[] sp = new SqlParameter[]
+             {
+                 new SqlParameter("@RID",bag.RID),
+                 new SqlParameter("@UserId",bag.UserId),
+                 new SqlParameter("@BagAmount",bag.BagAmount),
+                 new SqlParameter("@BagNum",bag.BagNum),
+                 new SqlParameter("@CreateTime",bag.CreateTime),
+                 new SqlParameter("@BagStatus",bag.BagStatus),
+                 new SqlParameter("@Winner",bag.Winner),
+                 new SqlParameter("@WinnerAmount",bag.WinnerAmount)
+             };
+            var result = Dapper.Helper.SQLHelper.QueryDataSet(@"INSERT INTO CreateBag
+                   ([RID]
+                   ,[UserId]
+                   ,[BagAmount]
+                   ,[BagNum]
+                   ,[CreateTime]
+                   ,[BagStatus]
+                   ,[Winner]
+                   ,[WinnerAmount])
+             VALUES
+                   (@RID
+                   ,@UserId
+                   ,@BagAmount
+                   ,@BagNum
+                   ,@CreateTime
+                   ,@BagStatus
+                   ,@Winner
+                   ,@WinnerAmount)", sp, CommandType.Text);
+            if (result == "")
+                return 0;
+            return 1;
+        }
     }
 }

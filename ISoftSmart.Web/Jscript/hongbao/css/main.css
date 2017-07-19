@@ -37,25 +37,25 @@ body{background: #fff;}
 .top h2{font-size: 26px;}
 .top .renyuan{right: 15px;}
 
-.picMarquee-top{width: 100%; overflow:hidden; position:relative;margin: 12px 0; }
+.picMarquee-top{width: 100%; overflow:hidden; position:relative;margin: 12px 0;height: 100%; }
 .picMarquee-top .bd{ padding:0 15px;   }
 .picMarquee-top .bd  li p{width: 62px;height: 27px;line-height: 27px;background:rgba(0,0,0,0.5);border-radius: 4px;margin: 25px auto 13px ;}
 .picMarquee-top .bd  li{ text-align:center; zoom:1; }
 .picMarquee-top .bd  li .right img{ width: 80px;height: 80px;border: 2px solid #ddd;border-radius: 8px;  }
 .picMarquee-top .bd  li .cont_right {width:167px;height: 95px;background: url(../images/jindangundongbeijingtupian.png) no-repeat;margin-right: 6px; }
-.picMarquee-top .bd  li .cont_right a{padding:10px 0 0 70px;display: block;width: 150px;}
-.picMarquee-top .bd  li .cont_right a div{height: 50px;overflow: hidden;}
+.picMarquee-top .bd  li .cont_right a{padding:18px 0 0 70px;display: block;width: 150px;font-size: 10px;}
+.picMarquee-top .bd  li .cont_right a div{height: 40px;overflow: hidden;}
 
-.shurukuang{height: 73px;background: #E6E6E6;border-bottom: 2px solid #DBDBDB;padding: 0 5px;}
+.shurukuang{height: 73px;background: #E6E6E6;border-bottom: 2px solid #DBDBDB;padding: 0 5px;position:fixed;z-index: 3;left: 0;bottom: 0;width:100%;}
 .yuyin {line-height: 71px;width: 11%;}
-.shuru-wenben{width: 60%;margin: 0 2%;}
+.shuru-wenben{width: 75%;margin: 0 2%;}
 .shuru-wenben input{height: 53px;border: 1px solid #E1E1E1;line-height: 13px;padding:  19px 0 19px 10px;background: #fff;width: 100%;margin-top: 11px;border-radius: 4px;}
 .biaoqing{line-height: 71px;width: 11%;}
 .yingyong{line-height: 71px;width: 11%;margin-left: 2%;}
 
-.cont-index{background: #ECECEC;}
+.cont-index{background: #ECECEC;position: fixed;width:100%;}
 
-.admin-content-list{padding: 0;}
+.admin-content-list{padding:20px 10px 0 10px;margin-bottom:0;width: 100%;}
 .admin-content-list li a{display: block;width: 100%;}
 .admin-content-list li a img{width: 60px;height: 60px;}
 .admin-content-list li a p{line-height: 35px;font-size: 14px;color: #8A8A8A;margin: 0;padding-bottom: 20px;}
@@ -65,7 +65,7 @@ body{background: #fff;}
 .hongbao-top{line-height: 60px;font-size: 26px;}
 .hongbao-top .shut-fa{left: 15px;font-size: 22px;}
 
-.form-style ul{padding: 0;margin: 0;}
+.form-style{padding: 0;margin: 0;}
 .form-style input{line-height: 20px;padding: 29px 0 29px 10px;width: 100%;height: 82px;border: 2px solid #F0F0F0;background: #fff;font-size: 22px;color: #111;border-radius: 10px;}
 
 .yuan{right: 20px;font-size: 22px;top: 24px;}
@@ -78,7 +78,7 @@ body{background: #fff;}
 .shijijine{line-height: 105px;display: block;margin-bottom: 25px;font-size: 20px;}
 .shijijine strong{font-size: 52px;}
 
-.saiqian{line-height: 62px;width:80%;height: 66px;background: #E6C0B3;border: 2px solid #DCBEB4;color: #fff;font-size: 24px;margin: 0 auto;border-radius: 9px;display: block;}
+.saiqian{line-height: 62px;width:80%;height: 66px;background: #E75F39;border: 1px solid #DCBEB4;color: #fff;font-size: 24px;margin: 0 auto;border-radius: 9px;display: block;}
 .saiqian:hover,.saiqian:active,.saiqian:focus{color: #fff;}
 
 .lingqujinetishi{left: 0;bottom: 35px;line-height: 28px;width: 100%;margin: 0;}

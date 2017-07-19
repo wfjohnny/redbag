@@ -132,9 +132,11 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="init\initData.js" />
+    <Content Include="init\jquery.cookie.js" />
     <Content Include="Jscript\auth\authjs.js" />
     <Content Include="Jscript\css\csshake.min.css" />
     <Content Include="Jscript\css\style.css" />
+    <Content Include="Jscript\groupinfo\auth.js" />
     <Content Include="Jscript\groupinfo\group.js" />
     <Content Include="Jscript\groupinfo\sendbag.js" />
     <Content Include="Jscript\hongbao\1enter.html" />

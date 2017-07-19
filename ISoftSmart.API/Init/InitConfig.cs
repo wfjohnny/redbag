@@ -22,7 +22,7 @@ namespace ISoftSmart.API.Init
 
 
                 new ModelMaster() { from = typeof(AdUser) },
-                new ModelMaster() { from = typeof(RBCreateBag) }
+                new ModelMaster() { from = typeof(RBCreateBag)  }
             }; 
             IoCFactory.Instance.CurrentContainer.RegisterTypeList(list);//注册接口
 

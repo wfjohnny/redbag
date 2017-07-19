@@ -167,6 +167,60 @@ namespace ISoftSmart.API.Controllers
             //    Result = Result
             //});
         }
+        [Route("insertbag")]
+        [HttpPost]
+        public IHttpActionResult InsertBag(RBCreateBag bag)
+        {
+            var rt = ISoftSmart.Core.IoC.IoCFactory.Instance.CurrentContainer.Resolve<IRedBag>();//使用接口
+            bag.CreateTime = DateTime.Now;
+            var Code = string.Empty;
+            var ResponseMessage = string.Empty;
+            RBCreateBag Result = null;
+
+            bag.CreateTime = DateTime.Now;
+            var db = RedisManager.Instance.GetDatabase();
+            if (StackExchangeRedisExtensions.HasKey(db, CacheKey.BagKey))
+            {
+                lock (_locker)
+                {
+                    var bagcache = StackExchangeRedisExtensions.Get<List<RBCreateBag>>(db, CacheKey.BagKey);
+                    bagcache.Add(bag);
+                    StackExchangeRedisExtensions.Set(db, CacheKey.BagKey, bagcache, 240);
+                    var res = rt.InsertBag(bag);
+                    if (res > 0)
+                    {
+                        Code = "SCCESS";
+                        ResponseMessage = "金豆发放成功！";
+                    }
+                    else
+                    {
+                        Code = "ERROR";
+                        ResponseMessage = "金豆发放失败！";
+                    }
+                }
+            }
+            else
+            {
+                StackExchangeRedisExtensions.Set(db, CacheKey.BagKey, bag);
+                var res = rt.InsertBag(bag);
+                if (res > 0)
+                {
+                    Code = "SCCESS";
+                    ResponseMessage = "金豆发放成功！";
+                }
+                else
+                {
+                    Code = "ERROR";
+                    ResponseMessage = "金豆发放失败！";
+                }
+            }
+            return Ok(new APIResponse<RBCreateBag>
+            {
+                Code = Code,
+                ResponseMessage = ResponseMessage,
+                Result = Result
+            });
+        }
         RBCreateBag GenerateBag(RBCreateBag bag, out decimal curAmount)
         {
             bag.BagNum -= 1;

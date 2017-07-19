@@ -13,23 +13,21 @@
         <a id="close" class="pa shut-fa c3" href="">关闭</a>发金豆
     </div>
     <div class="am-padding">
-        <!--<form class="form-style" action="" method="post">-->
-            <ul>
-                <li class="pr">
-                    <span class="yuan pa c9">个</span>
-                    <input class="zongjine" placeholder="总金豆" type="text" value="123" />
-                    <p class="f18"><span class="c0">当前为拼手气金豆</span><!--<a class="cb" href="">改为普通红包</a>--></p>
-                </li>
-                <li class="pr">
-                    <span class="ge pa c9">个</span>
-                    <input class="hongbaogeshu" placeholder="金豆个数" type="text" value="11" />
-                    <p class="qunrenshu f18 c8">本群共<span>123</span>人</p>
-                </li>
-            </ul>
-            <textarea id="remark" class="f20 liuyan c9">恭喜发财，大吉大利</textarea>
-            <span class="shijijine am-text-center c0"><sup>Y</sup><stong><label id="num">0.00</label></stong></span>
-            <button class="saiqian am-text-center" id="sendBeans" type="button">塞钱进红包</button>
-        <!--</form>-->
+        <ul class="form-style">
+            <li class="pr">
+                <span class="yuan pa c9">元</span>
+                <input class="zongjine" id="bagAmount" placeholder="总金豆" type="text" value="" />
+                <p class="f18"><span class="c0">当前为拼手气金豆</span></p>
+            </li>
+            <li class="pr">
+                <span class="ge pa c9">个</span>
+                <input class="hongbaogeshu" id="bagNum" placeholder="金豆个数" type="text" value="" />
+                <p class="qunrenshu f18 c8">本群共<span>123</span>人</p>
+            </li>
+        </ul>
+        <textarea id="remark" class="f20 liuyan c9" placeholder="恭喜发财，大吉大利"></textarea>
+        <span class="shijijine am-text-center c0"><sup>Y</sup><stong><label id="num">0.00</label></stong></span>
+        <button class="saiqian am-text-center" id="sendBeans" type="button">塞钱进红包</button>
     </div>
     <p class="c9 pa lingqujinetishi am-text-center f14">
         对方可领取的金额为<span>0.01~200</span>元

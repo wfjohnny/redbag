@@ -11,5 +11,6 @@ namespace ISoftSmart.Inteface.Inteface
     {
         RBCreateBag GetBag(RBCreateBag bag);
         int ChangeBagStatus(RBCreateBag bag);
+        int InsertBag(RBCreateBag bag);
     }
 }

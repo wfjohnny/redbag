@@ -15,5 +15,7 @@ namespace ISoftSmart.Model.RB
         public int BagNum { get; set; }
         public DateTime CreateTime { get; set; }
         public int BagStatus { get; set; }
+        public Guid Winner { get; set; }
+        public decimal WinnerAmount { get; set; }
     }
 }

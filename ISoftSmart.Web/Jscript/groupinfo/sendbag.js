@@ -14,12 +14,11 @@ $(function () {
             remark = "恭喜发财，大吉大利";
         }
         bag.rID = parent.newGuid();
-        parent.bagID = bag.rID;
         bag.userId = parent.customerCode;
         bag.bagAmount = $("#bagAmount").val();
         bag.bagNum = $("#bagNum").val();
         parent.chat.server.sendBean(bag.rID, bag.bagAmount, bag.bagNum, remark).done(function () {
-            var res = callBackFuncJson("api/test", JSON.stringify(bag));
+            //var res = callBackFuncJson("api/test", JSON.stringify(bag));
             parent.layer.closeAll("iframe");
         });
     });

@@ -1,7 +1,6 @@
 ﻿var chat = $.connection.chatHub;
 var customerCode;
 var customerNick = "Customer" + Math.random().toString().substring(2, 5);//测试数据
-var bagID;
 function newGuid() {//测试数据
     var guid = "{";
     for (var i = 1; i <= 32; i++) {

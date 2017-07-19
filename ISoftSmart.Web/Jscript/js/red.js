@@ -43,10 +43,7 @@ $(document).ready(function () {
         // 在带有red样式的div中添加shake-chunk样式
         $('.red').addClass('shake-chunk');
         var dataJson = JSON.stringify(RBCreateBag);
-        debugger
         var open = callBackFuncJson("api/test/openbag", dataJson, "");
-        console.log(open);
-        debugger
         if (open.code == "SUCCESS") {//抢到后
             // 点击按钮2000毫秒后执行以下操作
             setTimeout(function () {
@@ -65,6 +62,7 @@ $(document).ready(function () {
                 $('.red-jg').css("text-align", "center");
                 $('h1').html("恭喜您！");
                 $('h5').html(open.message);
+                $('.t-btn').show();
             }, 2000);
         }
         else {
@@ -85,6 +83,8 @@ $(document).ready(function () {
                 $('.red-jg').css("text-align", "center");
                 $('h1').html("很遗憾！");
                 $('h5').html(open.message);
+                
+                $('.t-btn').hide();
             }, 2000);
         }
     });
